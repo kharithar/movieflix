@@ -1,0 +1,60 @@
+<div id="wrapper">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Movie Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="movieDetails">
+                <div class="action">{{movieVm.movie.title}}<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></div>
+
+                <ul class="list">
+                    <li><img class="profile-pic" src="http://ia.media-imdb.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg" /></li>
+                    <li>{{movieVm.movie.year}} | </li>
+                    <li>{{movieVm.movie.rated}} | </li>
+                    <li>{{movieVm.movie.runTime}} | </li>
+                    <li>
+                        <span ng-repeat="genre in movieVm.movie.genreList">
+                        {{genre}}{{$last ? ' ': ','}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="movieDetails">
+                <div class="action">Cast<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></div>
+                <ul class="list-group">
+                    <li class="list-group-item">Director: {{movieVm.movie.director}}</li>
+                    <li class="list-group-item">Writer:
+                        <span ng-repeat="writer in movieVm.movie.cast.writer">
+                            {{writer}}{{$last ? ' ': ','}}
+                        </span>
+                    </li>
+                    <li class="list-group-item">Actors:
+                        <span ng-repeat="actor in movieVm.movie.cast.actor">
+                            {{actor}}{{$last ? ' ': ','}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="movieDetails">
+                <div class="action">Plot<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></div>
+                <ul class="list-group">
+                    <li class="list-group-item">{{movieVm.movie.plot}}
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="movieDetails">
+                <button class="btn btn-primary" ng-click="loading = !loading" >Post your Comment</button>
+                <div ng-hide="!loading" ng-include="'app/views/add-comment.tmpl.html'"></div>
+                    <ul class="list-group">
+                        <span ng-repeat="comment in movieVm.movie.commentList">
+                        <li class="list-group-item">
+                        <b>{{comment.user.firstName}} {{comment.user.lastName}}</b>: {{comment.comments}}
+                        </li>
+                        </span>
+                    </ul>
+            </div>
+</div>
+    </div>
+</div>

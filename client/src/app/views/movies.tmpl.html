@@ -1,0 +1,70 @@
+<div id="wrapper">
+<div class="container">
+
+        <div class="input-group">
+            <select class="form-control pull-right" ng-model="movieListVm.filter" ng-options="filter as filter.desc for filter in movieListVm.filterFields"></select>
+        </div>
+
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." ng-model="movieListVm.searchInput">
+            <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+            </span>
+        </div>
+
+    <nav aria-label="Page Navigation">
+        <ul class="pagination">
+            <li class="disabled">
+      <span>
+        <span aria-hidden="true">&laquo;</span>
+      </span>
+            </li>
+            <li class="active">
+                <span>1 <span class="sr-only">(current)</span></span>
+            </li>
+            <li >
+                <span>2</span>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li ><a ng-href="#/add-movie" class="btn btn-primary" role="button">Add Movie</a></li>
+        </ul>
+    </nav>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th ng-click="movieListVm.sorter.sortBy='year'; movieListVm.sorter.sortOrder = !movieListVm.sorter.sortOrder;">Year</th>
+            <th ng-click="movieListVm.sorter.sortBy='imdbRating.rating'; movieListVm.sorter.sortOrder = !movieListVm.sorter.sortOrder;">IMDB Rating</th>
+            <th ng-click="movieListVm.sorter.sortBy='imdbRating.imdbVotes'; movieListVm.sorter.sortOrder = !movieListVm.sorter.sortOrder;">IMDB Votes</th>
+            <th>Rated</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="movie in movieListVm.movies | search: movieListVm.filter:movieListVm.searchInput  | orderBy:movieListVm.sorter.sortBy: movieListVm.sorter.sortOrder">
+            <td>
+                <figure>
+                    <a ng-href="#/movie-detail/{{movie.movieId}}">
+                        <img class="moviePic" ng-src="{{movie.moviePic}}" width="60" height="60"/>
+                        <figcaption>{{movie.title}}</figcaption>
+                    </a>
+                </figure>
+            </td>
+            <td>{{movie.year}}</td>
+            <td>{{movie.imdbRating.imdbVotes}}</td>
+            <td>{{movie.imdbRating.rating}}</td>
+            <td>{{movie.rated}}</td>
+            <td>{{movie.movieType}}</td>
+
+            <td>
+                <a href="#/delete-movie/{{movie.movieId}}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    </div>
